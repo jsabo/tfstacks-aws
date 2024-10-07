@@ -199,7 +199,7 @@ resource "aws_iam_policy" "additional" {
 
 resource "null_resource" "scale_up_node_group" {
   provisioner "local-exec" {
-    command = "aws eks update-nodegroup-config --cluster-name ${split(":", module.eks.eks_managed_node_groups.calico.node_group_id)[0]} --nodegroup-name ${split(":", module.eks.eks_managed_node_groups.calico.node_group_id)[1]} --scaling-config desiredSize=${local.desired_size}"
+    command = "aws eks update-nodegroup-config --cluster-name ${split(":", module.eks.eks_managed_node_groups.demo.node_group_id)[0]} --nodegroup-name ${split(":", module.eks.eks_managed_node_groups.demo.node_group_id)[1]} --scaling-config desiredSize=${local.desired_size}"
   }
 
   depends_on = [
