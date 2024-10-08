@@ -55,7 +55,7 @@ variable "calico_version" {
 variable "desired_size" {
   description = "Number of cluster nodes"
   type        = string
-  default     = "3"
+  default     = "4"
 }
 
 variable "instance_type" {
