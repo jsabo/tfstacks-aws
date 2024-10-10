@@ -74,11 +74,7 @@ locals {
     }]
   })
 
-  tags = {
-    Environment = "dev"
-    Terraform   = "true"
-    Owner       = "Jonathan Sabo"
-  }
+  tags = var.tags
 }
 
 ################################################################################

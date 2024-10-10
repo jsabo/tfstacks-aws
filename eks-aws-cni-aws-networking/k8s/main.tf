@@ -46,6 +46,9 @@ locals {
   region                             = data.aws_region.current.name
   webhook_bind_port_metrics_server   = 30000
   webhook_bind_port_awslb_controller = 30001
+  gremlin_team_id                    = var.gremlin_team_id
+  gremlin_team_secret                = var.gremlin_team_secret
+  gremlin_chart_version              = var.gremlin_chart_version
 
   kubeconfig = yamlencode({
     apiVersion      = "v1"
@@ -125,4 +128,18 @@ module "eks_blueprints_addons" {
   }
 
   tags = {}
+}
+
+resource "helm_release" "gremlin" {
+  name             = "gremlin"
+  chart            = "gremlin"
+  repository       = "https://helm.gremlin.com"
+  version          = "v${local.gremlin_chart_version}"
+  namespace        = "gremlin"
+  create_namespace = true
+  values = [templatefile("${path.module}/helm_values/values-gremlin.yaml", {
+    gremlin_team_id     = local.gremlin_team_id
+    gremlin_team_secret = local.gremlin_team_secret
+    gremlin_cluster_id  = local.cluster_name
+  })]
 }

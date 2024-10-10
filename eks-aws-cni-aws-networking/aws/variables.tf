@@ -1,7 +1,7 @@
 variable "name" {
-  description = "Name of cluster - used by Terratest for e2e test automation"
+  description = "Name of cluster"
   type        = string
-  default     = "demo"
+  default     = "sabo-demo"
 }
 
 variable "region" {
@@ -43,7 +43,7 @@ variable "cluster_service_ipv4_cidr" {
 variable "cluster_version" {
   description = "Kubernetes version for this cluster"
   type        = string
-  default     = "1.31"
+  default     = "1.30"
 }
 
 variable "calico_version" {
@@ -68,4 +68,14 @@ variable "ami_type" {
   description = "Type of Amazon Machine Image (AMI) associated with the EKS Node Group. Valid values are AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM, BOTTLEROCKET_ARM_64, BOTTLEROCKET_x86_64"
   type        = string
   default     = "AL2_x86_64"
+}
+
+variable "tags" {
+  description = "Tags to apply to the resources"
+  type        = map(string)
+  default = {
+    Environment = "dev"
+    Terraform   = "true"
+    Owner       = "Jonathan Sabo"
+  }
 }

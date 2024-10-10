@@ -1,0 +1,11 @@
+gremlin:
+  secret:
+    managed: true
+    type: secret
+    teamID: '${gremlin_team_id}'
+    teamSecret: '${gremlin_team_secret}'
+  hostPID: true
+  hostNetwork: true
+  container:
+    driver: containerd-linux
+  clusterID: '${gremlin_cluster_id}'
