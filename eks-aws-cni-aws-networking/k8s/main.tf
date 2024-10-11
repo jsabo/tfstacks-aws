@@ -49,6 +49,7 @@ locals {
   gremlin_team_id                    = var.gremlin_team_id
   gremlin_team_secret                = var.gremlin_team_secret
   gremlin_chart_version              = var.gremlin_chart_version
+  otel_demo_chart_version            = var.otel_demo_chart_version
 
   kubeconfig = yamlencode({
     apiVersion      = "v1"
@@ -141,5 +142,16 @@ resource "helm_release" "gremlin" {
     gremlin_team_id     = local.gremlin_team_id
     gremlin_team_secret = local.gremlin_team_secret
     gremlin_cluster_id  = local.cluster_name
+  })]
+}
+
+resource "helm_release" "opentelemetry-demo" {
+  name             = "otel-demo"
+  chart            = "opentelemetry-demo"
+  repository       = "https://open-telemetry.github.io/opentelemetry-helm-charts"
+  version          = local.otel_demo_chart_version
+  namespace        = "otel-demo"
+  create_namespace = true
+  values = [templatefile("${path.module}/helm_values/values-opentelemetry-demo.yaml", {
   })]
 }

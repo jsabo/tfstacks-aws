@@ -135,19 +135,19 @@ module "eks" {
       type                          = "ingress"
       source_cluster_security_group = true
     }
-    ingress_to_tigera_image_assurance_admission_controller = {
-      description                   = "Cluster API to Tigera Admission Controller"
-      protocol                      = "tcp"
-      from_port                     = 8080
-      to_port                       = 8080
-      type                          = "ingress"
-      source_cluster_security_group = true
-    }
     ingress_to_metrics_server = {
       description                   = "Cluster API to metrics-server"
       protocol                      = "tcp"
       from_port                     = 30000
       to_port                       = 30000
+      type                          = "ingress"
+      source_cluster_security_group = true
+    }
+    ingress_to_awslb_controller = {
+      description                   = "Cluster API to awslb-controller"
+      protocol                      = "tcp"
+      from_port                     = 30001
+      to_port                       = 30001
       type                          = "ingress"
       source_cluster_security_group = true
     }

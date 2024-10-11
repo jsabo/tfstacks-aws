@@ -5,7 +5,6 @@ variable "gremlin_team_id" {
   DESC
   type        = string
   sensitive   = true
-  default     = ""
 }
 
 variable "gremlin_team_secret" {
@@ -15,11 +14,16 @@ variable "gremlin_team_secret" {
   DESC
   type        = string
   sensitive   = true
-  default     = ""
 }
 
 variable "gremlin_chart_version" {
   description = "Gremlin Helm Chart release version"
   type        = string
   default     = "0.19.0"
+}
+
+variable "otel_demo_chart_version" {
+  description = "Opentelemetry Demo Helm Chart release version"
+  type        = string
+  default     = "0.32.8"
 }
