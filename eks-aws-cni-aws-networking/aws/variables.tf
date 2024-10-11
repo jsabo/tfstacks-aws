@@ -28,12 +28,6 @@ variable "secondary_vpc_cidr" {
   default     = "10.99.0.0/16"
 }
 
-variable "pod_cidr" {
-  description = "Calico POD CIDR"
-  type        = string
-  default     = "10.244.0.0/24"
-}
-
 variable "cluster_service_ipv4_cidr" {
   description = "Kubernetes Service CIDR"
   type        = string

@@ -46,7 +46,6 @@ locals {
   ami_type                  = var.ami_type
   key_name                  = var.ssh_keyname
   cluster_version           = var.cluster_version
-  calico_version            = var.calico_version
 
   kubeconfig = yamlencode({
     apiVersion      = "v1"
@@ -168,22 +167,8 @@ module "eks" {
 # Calico Resources
 ################################################################################
 
-resource "helm_release" "calico" {
-  name             = "calico"
-  chart            = "tigera-operator"
-  repository       = "https://docs.projectcalico.org/charts"
-  version          = local.calico_version
-  namespace        = "tigera-operator"
-  create_namespace = true
-  values           = [templatefile("${path.module}/helm_values/values-calico.yaml", {})]
-
-  depends_on = [
-    module.eks,
-  ]
-}
-
 resource "aws_iam_policy" "additional" {
-  name   = "${local.name}-calico-cni-additional"
+  name   = "${local.name}-additional"
   policy = file("${path.cwd}/min-iam-policy.json")
 }
 
