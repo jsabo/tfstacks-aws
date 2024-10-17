@@ -9,3 +9,5 @@ gremlin:
   container:
     driver: containerd-linux
   clusterID: '${gremlin_cluster_id}'
+  collect:
+    dns: true

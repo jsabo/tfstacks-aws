@@ -114,7 +114,7 @@ module "eks" {
       }
 
       pre_bootstrap_user_data = <<-EOT
-        yum install -y amazon-ssm-agent kernel-devel-`uname -r`
+        yum install -y amazon-ssm-agent kernel-devel-`uname -r` iproute-tc
         yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -y
         curl -o /etc/yum.repos.d/jdoss-wireguard-epel-7.repo https://copr.fedorainfracloud.org/coprs/jdoss/wireguard/repo/epel-7/jdoss-wireguard-epel-7.repo
         yum install wireguard-dkms wireguard-tools -y
@@ -164,12 +164,36 @@ module "eks" {
 }
 
 ################################################################################
-# Calico Resources
+# Additional Resources
 ################################################################################
 
 resource "aws_iam_policy" "additional" {
   name   = "${local.name}-additional"
   policy = file("${path.cwd}/min-iam-policy.json")
+}
+
+# Create the IAM Policy for Gremlin Access
+resource "aws_iam_policy" "gremlin_policy" {
+  name   = "${local.name}-gremlin-access-policy"
+  policy = file("${path.module}/gremlin-policy.json")
+}
+
+# Create the IAM Role with Custom Trust Policy
+resource "aws_iam_role" "gremlin_role" {
+  name               = "${local.name}-gremlin-role"
+  assume_role_policy = file("${path.module}/gremlin-trust-policy.json")
+}
+
+# Attach the Gremlin Policy to the Role
+resource "aws_iam_role_policy_attachment" "gremlin_policy_attachment" {
+  role       = aws_iam_role.gremlin_role.name
+  policy_arn = aws_iam_policy.gremlin_policy.arn
+}
+
+# Attach the AWS Managed SecurityAudit Policy to the Role
+resource "aws_iam_role_policy_attachment" "security_audit_policy_attachment" {
+  role       = aws_iam_role.gremlin_role.name
+  policy_arn = "arn:aws:iam::aws:policy/SecurityAudit"
 }
 
 ################################################################################

@@ -153,5 +153,6 @@ resource "helm_release" "opentelemetry-demo" {
   namespace        = "otel-demo"
   create_namespace = true
   values = [templatefile("${path.module}/helm_values/values-opentelemetry-demo.yaml", {
+    gremlin_team_id     = local.cluster_name
   })]
 }

@@ -1,0 +1,37 @@
+components:
+  accountingService:
+    enabled: true
+    replicas: 2
+  adService:
+    enabled: true
+    replicas: 2
+  cartService:
+    enabled: true
+    replicas: 2
+  checkoutService:
+    enabled: true
+    replicas: 2
+  currencyService:
+    enabled: true
+    replicas: 2
+  emailService:
+    enabled: true
+    replicas: 2
+  frontend:
+    enabled: true
+    replicas: 2
+  paymentService:
+    enabled: true
+    replicas: 2
+  productCatalogService:
+    enabled: true
+    replicas: 2
+  quoteService:
+    enabled: true
+    replicas: 2
+  recommendationService:
+    enabled: true
+    replicas: 2
+  shippingService:
+    enabled: true
+    replicas: 2
