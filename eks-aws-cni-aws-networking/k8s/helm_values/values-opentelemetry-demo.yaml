@@ -20,6 +20,26 @@ components:
   frontend:
     enabled: true
     replicas: 2
+  frontendProxy:
+    enabled: true
+    replicas: 2
+    service:
+      type: LoadBalancer
+    ingress:
+      enabled: true
+      ingressClassName: alb
+      annotations:
+        alb.ingress.kubernetes.io/scheme: internet-facing
+        alb.ingress.kubernetes.io/target-type: instance
+        alb.ingress.kubernetes.io/target-node-labels: kubernetes.io/os=linux
+        alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+        #alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80},{"HTTPS": 443}]'
+      hosts:
+        - host: ""
+          paths:
+            - path: /
+              pathType: Prefix
+              port: 8080 
   paymentService:
     enabled: true
     replicas: 2
