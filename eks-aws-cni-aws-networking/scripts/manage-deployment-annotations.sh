@@ -22,7 +22,6 @@ SERVICES=(
   "otel-demo-frontendproxy:frontend-proxy"
   "otel-demo-imageprovider:image-provider"
   "otel-demo-kafka:kafka"
-  "otel-demo-otelcol:otelcol"
   "otel-demo-paymentservice:payment-service"
   "otel-demo-productcatalogservice:product-catalog-service"
   "otel-demo-quoteservice:quote-service"
