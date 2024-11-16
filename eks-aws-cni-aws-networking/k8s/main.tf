@@ -50,6 +50,8 @@ locals {
   gremlin_team_secret                = var.gremlin_team_secret
   gremlin_chart_version              = var.gremlin_chart_version
   otel_demo_chart_version            = var.otel_demo_chart_version
+  datadog_api_key                    = var.datadog_api_key
+  datadog_site                       = var.datadog_site
 
   kubeconfig = yamlencode({
     apiVersion      = "v1"
@@ -153,6 +155,9 @@ resource "helm_release" "opentelemetry-demo" {
   namespace        = "otel-demo"
   create_namespace = true
   values = [templatefile("${path.module}/helm_values/values-opentelemetry-demo.yaml", {
-    gremlin_team_id     = local.cluster_name
+    gremlin_team_id    = local.cluster_name
+    datadog_api_key    = local.datadog_api_key
+    datadog_site       = local.datadog_site
+    gremlin_cluster_id = local.cluster_name
   })]
 }

@@ -27,3 +27,22 @@ variable "otel_demo_chart_version" {
   type        = string
   default     = "0.32.8"
 }
+
+variable "datadog_api_key" {
+  description = <<-DESC
+    (Required) API Key for Datadog.
+    Use the environment variable TF_VAR_datadog_api_key if you prefer not to hard-code this value.
+  DESC
+  type        = string
+  sensitive   = true
+}
+
+variable "datadog_site" {
+  description = <<-DESC
+    (Optional) Datadog site. Defaults to "datadoghq.com" (US).
+    Use the environment variable TF_VAR_datadog_site if you prefer not to hard-code this value.
+  DESC
+  type        = string
+  default     = "datadoghq.com"
+}
+

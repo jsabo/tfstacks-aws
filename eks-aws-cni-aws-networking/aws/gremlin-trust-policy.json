@@ -8,7 +8,7 @@
       },
       "Condition": {
         "StringEquals": {
-          "sts:ExternalId": "9676868b-60d2-5ebe-aa66-c1de8162ff9d"
+          "sts:ExternalId": "8da66dfe-b6c6-5966-82dd-ffcdfafc39d4"
         }
       },
       "Action": "sts:AssumeRole"
