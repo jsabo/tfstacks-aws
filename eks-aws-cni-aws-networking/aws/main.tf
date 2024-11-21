@@ -123,6 +123,24 @@ module "eks" {
 
       tags = local.tags
     }
+
+  }
+
+  fargate_profile_defaults = {
+    iam_role_additional_policies = {
+      additional = aws_iam_policy.additional.arn
+    }
+  }
+
+  fargate_profiles = {
+    fargate = {
+      name = "fargate"
+      selectors = [{
+        namespace = "fargate"
+      }]
+      subnet_ids = slice(module.vpc.private_subnets, 0, 2)
+      tags       = local.tags
+    }
   }
 
   node_security_group_additional_rules = {
