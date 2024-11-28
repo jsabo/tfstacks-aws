@@ -1,4 +1,12 @@
 opentelemetry-collector:
+  enabled: true
+  resources:
+    requests:
+      memory: "500Mi"
+      cpu: "250m"
+    limits:
+      memory: "1Gi"
+      cpu: "500m"
   config:
     receivers:
       redis:
@@ -38,6 +46,27 @@ opentelemetry-collector:
           processors: [resource, batch]
           exporters: [opensearch, debug, datadog]
 
+prometheus:
+  enabled: true
+  resources:
+    requests:
+      memory: "500Mi"
+      cpu: "250m"
+    limits:
+      memory: "1Gi"
+      cpu: "500m"
+
+opensearch:
+  enabled: true
+  replicas: 1
+  resources:
+    requests:
+      memory: "1Gi"
+      cpu: "1000m"
+    limits:
+      memory: "2Gi"
+      cpu: "2000m"
+      
 components:
   accountingService:
     enabled: true
@@ -296,6 +325,13 @@ components:
   kafka:
     enabled: true
     replicas: 2
+    resources:
+      requests:
+        memory: "600Mi"
+        cpu: "250m"
+      limits:
+        memory: "1Gi"
+        cpu: "500m"
     schedulingRules:
       affinity:
         podAntiAffinity:
@@ -307,3 +343,13 @@ components:
                     values:
                       - kafka
               topologyKey: topology.kubernetes.io/zone
+
+  loadgenerator:
+    enabled: true
+    resources:
+      requests:
+        memory: "1Gi"
+        cpu: "1000m"
+      limits:
+        memory: "2Gi"
+        cpu: "2000m"

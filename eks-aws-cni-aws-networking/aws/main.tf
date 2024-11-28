@@ -97,6 +97,7 @@ module "eks" {
 
   eks_managed_node_groups = {
     demo = {
+      name           = local.name
       instance_types = ["${local.instance_type}"]
       ami_type       = "${local.ami_type}"
 
