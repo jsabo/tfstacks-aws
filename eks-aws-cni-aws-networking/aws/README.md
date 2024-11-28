@@ -1,6 +1,6 @@
-# AWS CNI with Calico Security Policy
+# AWS CNI with AWS Networking
 
-This example demonstrates how to provision an EKS cluster using the AWS CNI with Calico security policies.
+This example demonstrates how to provision an EKS cluster using the AWS CNI with AWS networking.
 
 ## Prerequisites:
 
@@ -36,21 +36,12 @@ kubectl get pods -A
 
 # Output should show some pods running
 NAMESPACE          NAME                                       READY   STATUS    RESTARTS   AGE
-calico-apiserver   calico-apiserver-dbf6d64dc-7f9rp           1/1     Running   0          110s
-calico-apiserver   calico-apiserver-dbf6d64dc-q44r7           1/1     Running   0          110s
-calico-system      calico-kube-controllers-5fc6cb9c78-mwkk5   1/1     Running   0          2m12s
-calico-system      calico-node-5645l                          1/1     Running   0          2m12s
-calico-system      calico-node-cx868                          1/1     Running   0          2m12s
-calico-system      calico-typha-76677b656b-zffsp              1/1     Running   0          2m12s
-calico-system      csi-node-driver-k4dzn                      2/2     Running   0          2m12s
-calico-system      csi-node-driver-vsrlq                      2/2     Running   0          2m12s
 kube-system        aws-node-l5sq6                             1/1     Running   0          3m11s
 kube-system        aws-node-n4xf9                             1/1     Running   0          3m9s
 kube-system        coredns-55fb5d545d-w2tq8                   1/1     Running   0          10m
 kube-system        coredns-55fb5d545d-x5np4                   1/1     Running   0          10m
 kube-system        kube-proxy-lnlc4                           1/1     Running   0          3m11s
 kube-system        kube-proxy-xjhfk                           1/1     Running   0          3m9s
-tigera-operator    tigera-operator-5d6845b496-fghhn           1/1     Running   0          2m18s
 ```
 
 3. View the nodes that were created:
@@ -69,6 +60,5 @@ ip-10-0-163-9.ec2.internal     Ready    <none>   10m   v1.24.10-eks-48e63af
 To teardown and remove the resources created in this example:
 
 ```sh
-terraform state rm helm_release.calico
 terraform destroy --auto-approve
 ```
