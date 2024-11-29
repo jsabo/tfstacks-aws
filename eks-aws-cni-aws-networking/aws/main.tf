@@ -105,6 +105,7 @@ module "eks" {
       max_size     = 8
       desired_size = local.desired_size
 
+  attach_cluster_primary_security_group = true
       disk_size = 100
 
       key_name = local.key_name
@@ -144,31 +145,20 @@ module "eks" {
     }
   }
 
+  # Extend cluster security group rules
+  cluster_security_group_additional_rules = {
+    egress_nodes_ephemeral_ports_tcp = {
+      description                = "To node 1025-65535"
+      protocol                   = "tcp"
+      from_port                  = 1025
+      to_port                    = 65535
+      type                       = "egress"
+      source_node_security_group = true
+    }
+  }
+
+  # Extend node-to-node security group rules
   node_security_group_additional_rules = {
-    ingress_to_tigera_api = {
-      description                   = "Cluster API to Calico API server"
-      protocol                      = "tcp"
-      from_port                     = 5443
-      to_port                       = 5443
-      type                          = "ingress"
-      source_cluster_security_group = true
-    }
-    ingress_to_metrics_server = {
-      description                   = "Cluster API to metrics-server"
-      protocol                      = "tcp"
-      from_port                     = 30000
-      to_port                       = 30000
-      type                          = "ingress"
-      source_cluster_security_group = true
-    }
-    ingress_to_awslb_controller = {
-      description                   = "Cluster API to awslb-controller"
-      protocol                      = "tcp"
-      from_port                     = 30001
-      to_port                       = 30001
-      type                          = "ingress"
-      source_cluster_security_group = true
-    }
     ingress_self_all = {
       description = "Node to node all ports/protocols"
       protocol    = "-1"
