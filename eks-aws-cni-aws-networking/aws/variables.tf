@@ -7,7 +7,7 @@ variable "name" {
 variable "region" {
   description = "AWS Region of cluster"
   type        = string
-  default     = "us-east-2"
+  default     = "us-east-1"
 }
 
 variable "ssh_keyname" {

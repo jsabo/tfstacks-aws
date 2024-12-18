@@ -120,7 +120,7 @@ module "eks_blueprints_addons" {
     })]
   }
 
-  enable_ingress_nginx = true
+  enable_ingress_nginx = false
   ingress_nginx = {
     name       = "ingress"
     chart      = "ingress-nginx"
