@@ -1,13 +1,13 @@
 variable "name" {
   description = "Name of cluster"
   type        = string
-  default     = "sabo-demo"
+  default     = "sabodotio-us-east-2"
 }
 
 variable "region" {
   description = "AWS Region of cluster"
   type        = string
-  default     = "us-east-1"
+  default     = "us-east-2"
 }
 
 variable "ssh_keyname" {
