@@ -1,3 +1,9 @@
+variable "region" {
+  description = "AWS Region of cluster"
+  type        = string
+  default     = "us-east-1"
+}
+
 variable "gremlin_team_id" {
   description = <<-DESC
     (Required) Team ID for Gremlin.

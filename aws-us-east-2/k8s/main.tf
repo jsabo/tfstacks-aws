@@ -9,7 +9,9 @@ data "aws_eks_cluster_auth" "this" {
   name = local.cluster_name
 }
 
-data "aws_region" "current" {}
+provider "aws" {
+  region = local.region
+}
 
 provider "kubernetes" {
   host                   = local.cluster_endpoint
@@ -43,7 +45,7 @@ locals {
   cluster_version                    = data.terraform_remote_state.aws_tfstate.outputs.cluster_version
   oidc_provider_arn                  = data.terraform_remote_state.aws_tfstate.outputs.oidc_provider_arn
   cluster_certificate_authority_data = data.terraform_remote_state.aws_tfstate.outputs.cluster_certificate_authority_data
-  region                             = data.aws_region.current.name
+  region                             = var.region
   webhook_bind_port_metrics_server   = 30000
   webhook_bind_port_awslb_controller = 30001
   gremlin_team_id                    = var.gremlin_team_id
