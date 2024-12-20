@@ -1,6 +1,6 @@
 variable "location" {
   description = "The resource group location"
-  default     = "eastus"
+  default     = "northeurope"
 }
 
 variable "vnet_resource_group_name" {
