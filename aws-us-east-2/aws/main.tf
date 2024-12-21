@@ -105,7 +105,7 @@ module "eks" {
       max_size     = 8
       desired_size = local.desired_size
 
-  attach_cluster_primary_security_group = true
+      attach_cluster_primary_security_group = true
       disk_size = 100
 
       key_name = local.key_name
@@ -167,6 +167,11 @@ module "eks" {
       type        = "ingress"
       self        = true
     }
+  }
+
+  # Fix for AWS LB Controller (https://github.com/terraform-aws-modules/terraform-aws-eks/issues/1986)
+  node_security_group_tags = {
+    "kubernetes.io/cluster/${local.name}" = null
   }
 
   tags = local.tags
